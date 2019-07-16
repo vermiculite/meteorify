@@ -221,35 +221,6 @@ try{
 }
 ```
 
-
-
-### Using Mongo Databases to manage data
-
-Meteorify uses the `mongo_dart` package internally to provide access to actual database.
-
-For more instructions regarding use of `mongo_dart` , visit their [mongo_dart guide](https://github.com/mongo-dart/mongo_dart).
-
-#### Get Meteor Database
-
-```dart
-import 'package:mongo_dart/mongo_dart.dart';
-
-Db db = await Meteor.getMeteorDatabase();
-```
-
-
-
-#### Get custom database
-
-```dart
-import 'package:mongo_dart/mongo_dart.dart';
-
-Db db = await Meteor.getCustomDatabase(dbUrl);
-await db.open();
-```
-
-
-
 #### Get collection
 
 ```dart

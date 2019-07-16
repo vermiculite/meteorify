@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:ddp/ddp.dart';
-import 'package:mongo_dart/mongo_dart.dart';
 import '../listeners/listeners.dart';
 import 'subscribed_collection.dart';
 
@@ -33,8 +32,6 @@ class Meteor {
 
   /// Get the [_currentUserId].
   static String get currentUserId => _currentUserId;
-
-  static Db db;
 
   /// Connect to the Meteor framework using the [url].
   ///
@@ -153,51 +150,9 @@ class Meteor {
     completer.completeError(result.reply['reason']);
   }
 
-  /*
-   * Methods associated with connection to MongoDB
-   */
-  /// Returns the default Meteor database after opening a connection.
-  ///
-  /// This database can be accessed using the [Db] class.
-  static Future<Db> getMeteorDatabase() async {
-    Completer<Db> completer = Completer<Db>();
-    if (db == null) {
-      final uri = Uri.parse(_connectionUrl);
-      String dbUrl = "mongodb://" + uri.host + ":3001/meteor";
-      print("Connecting to $dbUrl");
-      db = Db(dbUrl);
-      await db.open();
-    }
-    completer.complete(db);
-    return completer.future;
-  }
-
-  /// Returns connection to a Meteor database using [dbUrl].
-  ///
-  /// You need to manually open the connection using `db.open()` after getting the connection.
-  static Db getCustomDatabase(String dbUrl) {
-    return Db(dbUrl);
-  }
-
-/*
- * Methods associated with current user
- */
-  /// Returns the logged in user object as a map of properties.
-  static Future<Map<String, dynamic>> userAsMap() async {
-    Completer completer = Completer<Map<String, dynamic>>();
-    Db db = await getMeteorDatabase();
-    print(db);
-    var user = await db.collection("users").findOne({"_id": _currentUserId});
-    print(_currentUserId);
-    print(user);
-    completer.complete(user);
-    return completer.future;
-  }
-
 /*
  * Methods associated with subscriptions
  */
-
   /// Subscribe to a subscription using the [subscriptionName].
   ///
   /// Returns the `subscriptionId` as a [String].
