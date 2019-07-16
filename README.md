@@ -117,7 +117,6 @@ await Meteor.unsubscribe(subscriptionId);
 
 ```dart
 SubscribedCollection collection = await Meteor.collection(collectionName);
-//collection.find({selectors});
 //collection.findAll();
 //collection.findOne(id);
 ```

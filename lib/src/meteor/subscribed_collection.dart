@@ -29,29 +29,4 @@ class SubscribedCollection {
     _collection.addUpdateListener(listener);
   }
 
-  /// Returns specific objects from a subscribed collection using a set of [selectors].
-  Map<String, Map<String, dynamic>> find(Map<String, dynamic> selectors) {
-    Map<String, Map<String, dynamic>> filteredCollection =
-        Map<String, Map<String, dynamic>>();
-    print("Finding docs");
-    print(selectors.keys);
-    _collection.findAll().forEach((key, document) {
-      bool shouldAdd = true;
-      selectors.forEach((selector, value) {
-        print("Key: $selector");
-        print("Value: ${document[selector]}");
-        if (document[selector] != value) {
-          shouldAdd = false;
-        }
-      });
-      if (shouldAdd) {
-        print('Add');
-        filteredCollection[key] = document;
-      } else {
-        print("Don't add");
-      }
-    });
-
-    return filteredCollection;
-  }
 }
